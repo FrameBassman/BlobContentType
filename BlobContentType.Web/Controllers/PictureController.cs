@@ -24,6 +24,23 @@ namespace BlobContentType.Web.Controllers
         
         public async Task<IActionResult> Index()
         {
+            var imageUrl = "https://barcode.tec-it.com/barcode.ashx?data=ABC-abc-1234&code=Code128&dpi=96";
+            using (var input = await _client.GetStreamAsync(imageUrl))
+            {
+                _log.LogWarning("Inside input");
+                using (var memory = new MemoryStream())
+                {
+                    _log.LogWarning("Inside memory");
+                    var bitmap = new Bitmap(input);
+                    _log.LogWarning("Created bitmap");
+                    bitmap.Save(memory, ImageFormat.Png);
+                    _log.LogWarning("Saved bitmap");
+                    byte[] byteImage = memory.ToArray();
+                    _log.LogWarning("Got byte array of image");
+                    var someString = Convert.ToBase64String(byteImage);
+                    _log.LogWarning("Converted image to Base64");
+                }
+            }
             return new OkObjectResult("It's OK");
         }
     }

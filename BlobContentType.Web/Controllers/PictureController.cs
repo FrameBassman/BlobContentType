@@ -24,7 +24,7 @@ namespace BlobContentType.Web.Controllers
         
         public async Task<IActionResult> Index()
         {
-            var imageUrl = "https://barcode.tec-it.com/barcode.ashx?data=ABC-abc-1234&code=Code128&dpi=96";
+            var imageUrl = "https://www.scandit.com/wp-content/themes/scandit/barcode-generator.php?symbology=code128&value=213214214&size=300&ec=L";
             using (var input = await _client.GetStreamAsync(imageUrl))
             {
                 _log.LogWarning("Inside input");

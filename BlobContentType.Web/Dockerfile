@@ -5,10 +5,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-alpine3.9
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk update \
-    && apk add \
-        libgdiplus
+RUN apk add libgdiplus-dev fontconfig ttf-dejavu --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT dotnet BlobContentType.Web.dll

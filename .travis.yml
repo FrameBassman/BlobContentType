@@ -17,9 +17,8 @@ branches:
     - /.*/
 script:
   - dotnet build
-  - make build start-test
-  - bash Scripts/wait-until-service-is-up.sh
-  - dotnet test BlobContentType.Test
+  - make build start
+  - make test
   - make stop
 notifications:
   email:
